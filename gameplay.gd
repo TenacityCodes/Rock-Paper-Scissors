@@ -63,7 +63,7 @@ func _input(event:InputEvent) -> void:
 				player_selection_label.text = player_selection_basic_label + "Scissors"
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("enter"):
+	if Input.is_action_just_pressed("continue"):
 		if (items_can_be_changed):
 			reset_can_be_pressed = false
 			items_can_be_changed = false
