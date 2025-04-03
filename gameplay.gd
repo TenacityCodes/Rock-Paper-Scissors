@@ -8,8 +8,17 @@ var rock: int = 1
 var paper: int = 2
 var scissors: int = 3
 
+@onready var display_player_selection = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/Player Selection"
+@onready var display_cpu_selection = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/CPU Selection"
+
+@onready var display_outcome_label = $"Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Outcome"
+@onready var outcome_to_display = $"Outcome Display"
+
 var player_choice: int = 0
 var cpu_choice: int = 0
+
+func _ready() -> void:
+	outcome_to_display.visible = false
 
 func _on_rock_area_2d_mouse_entered() -> void:
 	in_rock_area = true
@@ -49,10 +58,10 @@ func _input(event:InputEvent) -> void:
 			
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("enter"):
-		cpu_selection()
+		cpu_select()
 		determine_outcome()
 
-func cpu_selection():
+func cpu_select():
 	cpu_choice = randi_range(1,3)
 	print("cpu choice was: ", cpu_choice)
 
@@ -83,5 +92,8 @@ func determine_outcome():
 			outcome = "You Win!"
 		
 	print("Outcome: ", outcome)
+	outcome_to_display.visible = true
+	display_outcome_label.text = outcome
+	
 		
 	

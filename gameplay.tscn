@@ -112,27 +112,34 @@ anchors_preset = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="Outcome Display"]
 layout_mode = 0
-offset_left = 50.0
-offset_top = 300.0
-offset_right = 590.0
+offset_left = 160.0
+offset_top = 280.0
+offset_right = 480.0
 offset_bottom = 340.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Outcome Display/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer"]
 layout_mode = 2
+alignment = 1
 
-[node name="Outcome" type="Label" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Outcome" type="Label" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("4_xuee5")
 theme_override_font_sizes/font_size = 24
-text = "Placeholder Outcome"
+text = "-
+"
 horizontal_alignment = 1
 
 [connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_entered"]
