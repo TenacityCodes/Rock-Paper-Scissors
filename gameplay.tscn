@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bno0mn1ntcv0"]
+
+[ext_resource type="Texture2D" uid="uid://n8w7dfinnweu" path="res://Assets/RPS-background.png" id="1_n4psk"]
+[ext_resource type="Texture2D" uid="uid://ew7ixwtosdq3" path="res://Assets/RPS-Assets.png" id="2_ej4tk"]
+
+[node name="Gameplay" type="Node2D"]
+
+[node name="Background Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_n4psk")
+centered = false
+
+[node name="Rock" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(150, 180)
+texture = ExtResource("2_ej4tk")
+region_enabled = true
+region_rect = Rect2(64, 104, 160, 160)
+
+[node name="Paper" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(320, 180)
+texture = ExtResource("2_ej4tk")
+region_enabled = true
+region_rect = Rect2(248, 104, 160, 160)
+
+[node name="Scissors" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(480, 180)
+texture = ExtResource("2_ej4tk")
+region_enabled = true
+region_rect = Rect2(408, 104, 160, 160)
