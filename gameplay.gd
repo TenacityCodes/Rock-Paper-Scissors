@@ -8,10 +8,10 @@ var rock: int = 1
 var paper: int = 2
 var scissors: int = 3
 
-@onready var display_player_selection = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/Player Selection"
-@onready var display_cpu_selection = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/CPU Selection"
+@onready var player_selection_label = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/Player Selection"
+@onready var cpu_selection_label = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/CPU Selection"
 
-@onready var display_outcome_label = $"Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Outcome"
+@onready var outcome_label = $"Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Outcome"
 @onready var outcome_to_display = $"Outcome Display"
 
 var player_choice: int = 0
@@ -48,14 +48,14 @@ func _input(event:InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if (in_rock_area):
 			player_choice = 1 
-			print("You selected rock")
+			player_selection_label.text = "You Chose: Rock"
 		elif (in_paper_area):
 			player_choice = 2 
-			print("You selected paper")
+			player_selection_label.text = "You Chose: Paper"
 		elif (in_scissors_area):
 			player_choice = 3
-			print("You selected scissors")
-			
+			player_selection_label.text = "You Chose: Scissors"
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("enter"):
 		cpu_select()
@@ -93,7 +93,7 @@ func determine_outcome():
 		
 	print("Outcome: ", outcome)
 	outcome_to_display.visible = true
-	display_outcome_label.text = outcome
+	outcome_label.text = outcome
 	
 		
 	
