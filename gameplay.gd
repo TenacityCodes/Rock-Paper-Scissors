@@ -14,11 +14,19 @@ var scissors: int = 3
 @onready var outcome_label = $"Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Outcome"
 @onready var outcome_to_display = $"Outcome Display"
 
+var player_selection_basic_label: String = "You Chose: "
+var cpu_selection_basic_label: String = "CPU Chose: "
+
+var items_can_be_changed: bool
+
+@onready var anticipation_wait_timer: float = 1
+
 var player_choice: int = 0
 var cpu_choice: int = 0
 
 func _ready() -> void:
 	outcome_to_display.visible = false
+	items_can_be_changed = true
 
 func _on_rock_area_2d_mouse_entered() -> void:
 	in_rock_area = true
@@ -45,30 +53,42 @@ func _on_scissors_area_2d_mouse_exited() -> void:
 	print("Scissors area: ", in_scissors_area)
 
 func _input(event:InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if (in_rock_area):
-			player_choice = 1 
-			player_selection_label.text = "You Chose: Rock"
-		elif (in_paper_area):
-			player_choice = 2 
-			player_selection_label.text = "You Chose: Paper"
-		elif (in_scissors_area):
-			player_choice = 3
-			player_selection_label.text = "You Chose: Scissors"
+	if (items_can_be_changed):
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			if (in_rock_area):
+				player_choice = 1 
+				player_selection_label.text = player_selection_basic_label + "Rock"
+			elif (in_paper_area):
+				player_choice = 2 
+				player_selection_label.text = player_selection_basic_label + "Paper"
+			elif (in_scissors_area):
+				player_choice = 3
+				player_selection_label.text = player_selection_basic_label + "Scissors"
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("enter"):
-		cpu_select()
-		determine_outcome()
+		if (items_can_be_changed):
+			items_can_be_changed = false
+			cpu_select()
+			await get_tree().create_timer(anticipation_wait_timer).timeout
+			determine_outcome()
+		
+	if Input.is_action_just_pressed("reset"):
+		try_again()
 
 func cpu_select():
 	cpu_choice = randi_range(1,3)
 	print("cpu choice was: ", cpu_choice)
+	
+	if (cpu_choice == 1):
+		cpu_selection_label.text = cpu_selection_basic_label + "Rock"
+	elif (cpu_choice == 2):
+		cpu_selection_label.text = cpu_selection_basic_label + "Paper"
+	elif (cpu_choice == 3):
+		cpu_selection_label.text = cpu_selection_basic_label + "Scissors"
 
 func determine_outcome():
 	var outcome: String = ""
-	print("THIS player_choice: ", player_choice)
-	print("THIS cpu choice was: ", cpu_choice)
 	
 	if (cpu_choice == player_choice):
 		outcome = "It's A Draw!"
@@ -90,10 +110,14 @@ func determine_outcome():
 			outcome = "You Lost."
 		if (cpu_choice == 2): # CPU chooses paper
 			outcome = "You Win!"
-		
+	
+	print()
 	print("Outcome: ", outcome)
 	outcome_to_display.visible = true
 	outcome_label.text = outcome
 	
-		
-	
+func try_again():
+	items_can_be_changed = true
+	player_selection_label.text = player_selection_basic_label
+	cpu_selection_label.text = cpu_selection_basic_label
+	outcome_to_display.visible = false
