@@ -115,9 +115,9 @@ anchors_preset = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="Outcome Display"]
 layout_mode = 0
-offset_left = 160.0
+offset_left = 100.0
 offset_top = 280.0
-offset_right = 480.0
+offset_right = 540.0
 offset_bottom = 340.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Outcome Display/PanelContainer"]
@@ -135,15 +135,17 @@ alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Outcome" type="Label" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Outcome" type="RichTextLabel" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("4_xuee5")
-theme_override_font_sizes/font_size = 24
-text = "-
-"
+theme_override_fonts/normal_font = ExtResource("4_xuee5")
+theme_override_font_sizes/normal_font_size = 24
+text = "-"
+fit_content = true
+autowrap_mode = 0
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_exited"]
