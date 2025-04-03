@@ -1,17 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://bno0mn1ntcv0"]
+[gd_scene load_steps=9 format=3 uid="uid://bno0mn1ntcv0"]
 
 [ext_resource type="Texture2D" uid="uid://n8w7dfinnweu" path="res://Assets/RPS-background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://dtg2p14pymxol" path="res://gameplay.gd" id="1_oe8ih"]
 [ext_resource type="Texture2D" uid="uid://ew7ixwtosdq3" path="res://Assets/RPS-Assets.png" id="2_ej4tk"]
+[ext_resource type="FontFile" uid="uid://da3yvnvdhvfai" path="res://Assets/PublicPixel-rv0pA.ttf" id="4_xuee5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ej4tk"]
-size = Vector2(152, 120)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smepj"]
+size = Vector2(136, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oe8ih"]
-size = Vector2(96, 135)
+size = Vector2(96, 120)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xuee5"]
-size = Vector2(120, 128)
+size = Vector2(104, 120)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xuee5"]
+color = Color(1, 1, 1, 1)
+thickness = 2
 
 [node name="Gameplay" type="Node2D"]
 script = ExtResource("1_oe8ih")
@@ -23,7 +28,7 @@ centered = false
 
 [node name="Rock" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(150, 180)
+position = Vector2(152, 200)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(64, 104, 160, 160)
@@ -31,12 +36,12 @@ region_rect = Rect2(64, 104, 160, 160)
 [node name="Area2D" type="Area2D" parent="Rock"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Area2D"]
-position = Vector2(-2, 8)
-shape = SubResource("RectangleShape2D_ej4tk")
+position = Vector2(-2, 12)
+shape = SubResource("RectangleShape2D_smepj")
 
 [node name="Paper" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(320, 180)
+position = Vector2(322, 200)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(248, 104, 160, 160)
@@ -44,12 +49,11 @@ region_rect = Rect2(248, 104, 160, 160)
 [node name="Area2D" type="Area2D" parent="Paper"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Paper/Area2D"]
-position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_oe8ih")
 
 [node name="Scissors" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(480, 180)
+position = Vector2(482, 200)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(408, 104, 160, 160)
@@ -57,8 +61,83 @@ region_rect = Rect2(408, 104, 160, 160)
 [node name="Area2D" type="Area2D" parent="Scissors"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scissors/Area2D"]
-position = Vector2(4, 4)
+position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_xuee5")
 
-[connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Rock/Area2D" to="." method="_on_area_2d_mouse_exited"]
+[node name="Choices Display" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Choices Display"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = 590.0
+offset_bottom = 110.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Choices Display/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Choices Display/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Player Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_xuee5")
+theme_override_font_sizes/font_size = 24
+text = "You Chose: "
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_xuee5")
+
+[node name="CPU Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_xuee5")
+theme_override_font_sizes/font_size = 24
+text = "CPU Chose:"
+horizontal_alignment = 1
+
+[node name="Outcome Display" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Outcome Display"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 300.0
+offset_right = 590.0
+offset_bottom = 340.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Outcome Display/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Outcome" type="Label" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_xuee5")
+theme_override_font_sizes/font_size = 24
+text = "Placeholder Outcome"
+horizontal_alignment = 1
+
+[connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Paper/Area2D" to="." method="_on_paper_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Paper/Area2D" to="." method="_on_paper_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Scissors/Area2D" to="." method="_on_scissors_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Scissors/Area2D" to="." method="_on_scissors_area_2d_mouse_exited"]
