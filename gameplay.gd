@@ -95,22 +95,22 @@ func determine_outcome():
 	elif (cpu_choice == player_choice):
 		outcome = "It's A Draw!"
 		
-	elif (player_choice == 1): # Player chooses rock
-		if (cpu_choice == 2): # CPU chooses paper
+	elif (player_choice == rock): 
+		if (cpu_choice == paper): 
 			outcome = "You Lost."
-		if (cpu_choice == 3): # CPU chooses scissors
+		if (cpu_choice == scissors): 
 			outcome = "You Win!"
 	
-	elif (player_choice == 2): # Player chooses paper
-		if (cpu_choice == 1): # CPU chooses rock
+	elif (player_choice == paper): 
+		if (cpu_choice == rock): 
 			outcome = "You Win!"
-		if (cpu_choice == 3): # CPU chooses scissors
+		if (cpu_choice == scissors): 
 			outcome = "You Lost."
 			
-	elif (player_choice == 3): # Player chooses scissors
-		if (cpu_choice == 1): # CPU chooses rock
+	elif (player_choice == scissors): 
+		if (cpu_choice == rock): 
 			outcome = "You Lost."
-		if (cpu_choice == 2): # CPU chooses paper
+		if (cpu_choice == paper):
 			outcome = "You Win!"
 	
 	outcome_to_display.visible = true
