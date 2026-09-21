@@ -2,17 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://n8w7dfinnweu" path="res://Assets/RPS-background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://dtg2p14pymxol" path="res://gameplay.gd" id="1_oe8ih"]
-[ext_resource type="Texture2D" uid="uid://ew7ixwtosdq3" path="res://Assets/RPS-Assets.png" id="2_ej4tk"]
 [ext_resource type="FontFile" uid="uid://da3yvnvdhvfai" path="res://Assets/PublicPixel-rv0pA.ttf" id="4_xuee5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_smepj"]
-size = Vector2(136, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oe8ih"]
-size = Vector2(96, 120)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xuee5"]
-size = Vector2(104, 120)
+[ext_resource type="Texture2D" uid="uid://df6fl46em7rko" path="res://Assets/rock.png" id="5_smepj"]
+[ext_resource type="Texture2D" uid="uid://t0iis4vqfjkn" path="res://Assets/paper.png" id="6_fbudy"]
+[ext_resource type="Texture2D" uid="uid://cm57ejxygf3d4" path="res://Assets/scissors.png" id="7_0m7cd"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_xuee5"]
 color = Color(1, 1, 1, 1)
@@ -25,44 +18,6 @@ script = ExtResource("1_oe8ih")
 texture_filter = 1
 texture = ExtResource("1_n4psk")
 centered = false
-
-[node name="Rock" type="Sprite2D" parent="." unique_id=1547763850]
-texture_filter = 1
-position = Vector2(152, 192)
-texture = ExtResource("2_ej4tk")
-region_enabled = true
-region_rect = Rect2(64, 104, 160, 160)
-
-[node name="Area2D" type="Area2D" parent="Rock" unique_id=2050225847]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Area2D" unique_id=148776745]
-position = Vector2(-2, 12)
-shape = SubResource("RectangleShape2D_smepj")
-
-[node name="Paper" type="Sprite2D" parent="." unique_id=623750367]
-texture_filter = 1
-position = Vector2(322, 192)
-texture = ExtResource("2_ej4tk")
-region_enabled = true
-region_rect = Rect2(248, 104, 160, 160)
-
-[node name="Area2D" type="Area2D" parent="Paper" unique_id=2123939388]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paper/Area2D" unique_id=1873128034]
-shape = SubResource("RectangleShape2D_oe8ih")
-
-[node name="Scissors" type="Sprite2D" parent="." unique_id=202559834]
-texture_filter = 1
-position = Vector2(482, 192)
-texture = ExtResource("2_ej4tk")
-region_enabled = true
-region_rect = Rect2(408, 104, 160, 160)
-
-[node name="Area2D" type="Area2D" parent="Scissors" unique_id=1463157833]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scissors/Area2D" unique_id=1118226394]
-position = Vector2(4, 0)
-shape = SubResource("RectangleShape2D_xuee5")
 
 [node name="Outcome Display" type="Control" parent="." unique_id=1857891672]
 layout_mode = 3
@@ -161,9 +116,36 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "Left Mouse Click = Select Option, Spacebar = Get Result, R = Reset Game"
 
-[connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_exited"]
-[connection signal="mouse_entered" from="Paper/Area2D" to="." method="_on_paper_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Paper/Area2D" to="." method="_on_paper_area_2d_mouse_exited"]
-[connection signal="mouse_entered" from="Scissors/Area2D" to="." method="_on_scissors_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Scissors/Area2D" to="." method="_on_scissors_area_2d_mouse_exited"]
+[node name="FullScreen" type="Control" parent="." unique_id=2072622259]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 368.0
+
+[node name="attackContainer" type="HBoxContainer" parent="FullScreen" unique_id=865335679]
+custom_minimum_size = Vector2(360, 100)
+layout_mode = 0
+offset_top = 136.0
+offset_right = 640.0
+offset_bottom = 256.0
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="rockBtn" type="Button" parent="FullScreen/attackContainer" unique_id=1704859382]
+layout_mode = 2
+icon = ExtResource("5_smepj")
+icon_alignment = 1
+
+[node name="paperBtn" type="Button" parent="FullScreen/attackContainer" unique_id=6275164]
+layout_mode = 2
+icon = ExtResource("6_fbudy")
+icon_alignment = 1
+
+[node name="scissorsBtn" type="Button" parent="FullScreen/attackContainer" unique_id=679341940]
+layout_mode = 2
+icon = ExtResource("7_0m7cd")
+icon_alignment = 1
+
+[connection signal="button_down" from="FullScreen/attackContainer/rockBtn" to="." method="_on_rock_btn_button_down"]
+[connection signal="button_down" from="FullScreen/attackContainer/paperBtn" to="." method="_on_paper_btn_button_down"]
+[connection signal="button_down" from="FullScreen/attackContainer/scissorsBtn" to="." method="_on_scissors_btn_button_down"]

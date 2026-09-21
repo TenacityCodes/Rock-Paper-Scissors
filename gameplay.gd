@@ -1,12 +1,6 @@
 extends Node2D
 
-var in_rock_area: bool = false
-var in_paper_area: bool = false
-var in_scissors_area: bool = false
-
-var rock: int = 1
-var paper: int = 2
-var scissors: int = 3
+enum RPS {ROCK, PAPER, SCISSORS}
 
 @onready var player_selection_label = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/Player Selection"
 @onready var cpu_selection_label = $"Choices Display/PanelContainer/MarginContainer/VBoxContainer/CPU Selection"
@@ -14,112 +8,67 @@ var scissors: int = 3
 @onready var outcome_label = $"Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Outcome"
 @onready var outcome_to_display = $"Outcome Display"
 
-var player_selection_basic_label: String = "You Chose: "
-var cpu_selection_basic_label: String = "CPU Chose: "
-
-var items_can_be_changed: bool
+var player_selection_default_label: String = "You Chose: "
+var cpu_selection_default_label: String = "CPU Chose: "
 
 var reset_can_be_pressed: bool
 
-@onready var anticipation_wait_timer: float = 0.5
+@onready var anticipation_wait_timer: float = 1
 
-var player_choice: int = 0
+var player_choice: int = -1
 var cpu_choice: int = 0
 
 func _ready() -> void:
 	outcome_to_display.visible = false
-	items_can_be_changed = true
 	reset_can_be_pressed = true
 
-func _on_rock_area_2d_mouse_entered() -> void:
-	in_rock_area = true
-
-func _on_rock_area_2d_mouse_exited() -> void:
-	in_rock_area = false
-
-func _on_paper_area_2d_mouse_entered() -> void:
-	in_paper_area = true
-
-func _on_paper_area_2d_mouse_exited() -> void:
-	in_paper_area = false
-
-func _on_scissors_area_2d_mouse_entered() -> void:
-	in_scissors_area = true
-
-func _on_scissors_area_2d_mouse_exited() -> void:
-	in_scissors_area = false
-
-func _input(event:InputEvent) -> void:
-	if (items_can_be_changed):
-		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-			if (in_rock_area):
-				player_choice = 1 
-				player_selection_label.text = player_selection_basic_label + "Rock"
-			elif (in_paper_area):
-				player_choice = 2 
-				player_selection_label.text = player_selection_basic_label + "Paper"
-			elif (in_scissors_area):
-				player_choice = 3
-				player_selection_label.text = player_selection_basic_label + "Scissors"
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("continue"):
-		if (items_can_be_changed):
-			reset_can_be_pressed = false
-			items_can_be_changed = false
-			cpu_select()
-			await get_tree().create_timer(anticipation_wait_timer).timeout
-			determine_outcome()
-			reset_can_be_pressed = true
+		cpu_select()
+		await get_tree().create_timer(anticipation_wait_timer).timeout
+		determine_outcome()
 	
 	if (reset_can_be_pressed):
 		if Input.is_action_just_pressed("reset"):
-			reset()
+			get_tree().reload_current_scene()
 
 func cpu_select():
-	cpu_choice = randi_range(1,3)
-
-	if (cpu_choice == 1):
-		cpu_selection_label.text = cpu_selection_basic_label + "Rock"
-	elif (cpu_choice == 2):
-		cpu_selection_label.text = cpu_selection_basic_label + "Paper"
-	elif (cpu_choice == 3):
-		cpu_selection_label.text = cpu_selection_basic_label + "Scissors"
+	cpu_choice = randi_range(RPS.ROCK,RPS.SCISSORS)
+	
+	cpu_selection_label.text = cpu_selection_default_label + RPS.keys()[cpu_choice]
 
 func determine_outcome():
 	var outcome: String = ""
 	
-	if (player_choice == 0):
+	if (player_choice == -1):
 		outcome = "No Input Entered"
 	
-	elif (cpu_choice == player_choice):
-		outcome = "It's A Draw!"
+	var combos = {RPS.ROCK: RPS.SCISSORS, RPS.PAPER: RPS.ROCK, RPS.SCISSORS: RPS.ROCK}
 	
-	elif (player_choice == rock): 
-		if (cpu_choice == paper): 
-			outcome = "You Lost."
-		if (cpu_choice == scissors): 
-			outcome = "You Win!"
-	
-	elif (player_choice == paper): 
-		if (cpu_choice == rock): 
-			outcome = "You Win!"
-		if (cpu_choice == scissors): 
-			outcome = "You Lost."
-			
-	elif (player_choice == scissors): 
-		if (cpu_choice == rock): 
-			outcome = "You Lost."
-		if (cpu_choice == paper):
-			outcome = "You Win!"
+	if (player_choice == cpu_choice): # TIE
+		outcome = "YOU TIE!"
+	elif (combos[player_choice] == cpu_choice): # WIN
+		outcome = "YOU WIN!"
+	else: # LOSE
+		outcome = "YOU LOSE!"
 	
 	outcome_to_display.visible = true
 	outcome_label.text = outcome
 
-func reset():
-	player_choice = 0
-	cpu_choice = 0
-	items_can_be_changed = true
-	player_selection_label.text = player_selection_basic_label
-	cpu_selection_label.text = cpu_selection_basic_label
-	outcome_to_display.visible = false
+
+func _on_rock_btn_button_down() -> void:
+	player_choice = RPS.ROCK
+	player_selection_label.text = player_selection_default_label + "ROCK"
+
+
+
+func _on_paper_btn_button_down() -> void:
+	player_choice = RPS.PAPER
+	player_selection_label.text = player_selection_default_label + "PAPER"
+
+
+
+func _on_scissors_btn_button_down() -> void:
+	player_choice = RPS.SCISSORS
+	player_selection_label.text = player_selection_default_label + "SCISSORS"
