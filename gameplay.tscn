@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bno0mn1ntcv0"]
+[gd_scene format=3 uid="uid://bno0mn1ntcv0"]
 
 [ext_resource type="Texture2D" uid="uid://n8w7dfinnweu" path="res://Assets/RPS-background.png" id="1_n4psk"]
 [ext_resource type="Script" uid="uid://dtg2p14pymxol" path="res://gameplay.gd" id="1_oe8ih"]
@@ -18,124 +18,79 @@ size = Vector2(104, 120)
 color = Color(1, 1, 1, 1)
 thickness = 2
 
-[node name="Gameplay" type="Node2D"]
+[node name="Gameplay" type="Node2D" unique_id=1816285354]
 script = ExtResource("1_oe8ih")
 
-[node name="Background Sprite" type="Sprite2D" parent="."]
+[node name="Background Sprite" type="Sprite2D" parent="." unique_id=555739296]
 texture_filter = 1
 texture = ExtResource("1_n4psk")
 centered = false
 
-[node name="Rock" type="Sprite2D" parent="."]
+[node name="Rock" type="Sprite2D" parent="." unique_id=1547763850]
 texture_filter = 1
-position = Vector2(152, 200)
+position = Vector2(152, 192)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(64, 104, 160, 160)
 
-[node name="Area2D" type="Area2D" parent="Rock"]
+[node name="Area2D" type="Area2D" parent="Rock" unique_id=2050225847]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Rock/Area2D" unique_id=148776745]
 position = Vector2(-2, 12)
 shape = SubResource("RectangleShape2D_smepj")
 
-[node name="Paper" type="Sprite2D" parent="."]
+[node name="Paper" type="Sprite2D" parent="." unique_id=623750367]
 texture_filter = 1
-position = Vector2(322, 200)
+position = Vector2(322, 192)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(248, 104, 160, 160)
 
-[node name="Area2D" type="Area2D" parent="Paper"]
+[node name="Area2D" type="Area2D" parent="Paper" unique_id=2123939388]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Paper/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Paper/Area2D" unique_id=1873128034]
 shape = SubResource("RectangleShape2D_oe8ih")
 
-[node name="Scissors" type="Sprite2D" parent="."]
+[node name="Scissors" type="Sprite2D" parent="." unique_id=202559834]
 texture_filter = 1
-position = Vector2(482, 200)
+position = Vector2(482, 192)
 texture = ExtResource("2_ej4tk")
 region_enabled = true
 region_rect = Rect2(408, 104, 160, 160)
 
-[node name="Area2D" type="Area2D" parent="Scissors"]
+[node name="Area2D" type="Area2D" parent="Scissors" unique_id=1463157833]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Scissors/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scissors/Area2D" unique_id=1118226394]
 position = Vector2(4, 0)
 shape = SubResource("RectangleShape2D_xuee5")
 
-[node name="Choices Display" type="Control" parent="."]
+[node name="Outcome Display" type="Control" parent="." unique_id=1857891672]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Choices Display"]
-layout_mode = 0
-offset_left = 70.0
-offset_top = 20.0
-offset_right = 570.0
-offset_bottom = 110.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Choices Display/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Choices Display/PanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 1
-
-[node name="Player Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_xuee5")
-theme_override_font_sizes/font_size = 24
-text = "You Chose: "
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HSeparator" type="HSeparator" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxLine_xuee5")
-
-[node name="CPU Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer"]
-texture_filter = 1
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_xuee5")
-theme_override_font_sizes/font_size = 24
-text = "CPU Chose:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Outcome Display" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="Outcome Display"]
+[node name="PanelContainer" type="PanelContainer" parent="Outcome Display" unique_id=1262884253]
 layout_mode = 0
 offset_left = 100.0
-offset_top = 280.0
+offset_top = 265.0
 offset_right = 540.0
-offset_bottom = 340.0
+offset_bottom = 325.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Outcome Display/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Outcome Display/PanelContainer" unique_id=2017583898]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer" unique_id=1650500469]
 layout_mode = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer" unique_id=1014201354]
 layout_mode = 2
 alignment = 1
 
-[node name="Outcome" type="RichTextLabel" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Outcome" type="RichTextLabel" parent="Outcome Display/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=419813642]
 texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -146,6 +101,65 @@ fit_content = true
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Choices Display" type="Control" parent="." unique_id=1344308329]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Choices Display" unique_id=1763706120]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 20.0
+offset_right = 570.0
+offset_bottom = 110.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Choices Display/PanelContainer" unique_id=2102190740]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Choices Display/PanelContainer/MarginContainer" unique_id=304177243]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Player Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer" unique_id=232317676]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_xuee5")
+theme_override_font_sizes/font_size = 24
+text = "You Chose: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer" unique_id=790528374]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_xuee5")
+
+[node name="CPU Selection" type="Label" parent="Choices Display/PanelContainer/MarginContainer/VBoxContainer" unique_id=796968654]
+texture_filter = 1
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_xuee5")
+theme_override_font_sizes/font_size = 24
+text = "CPU Chose:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1870354990]
+offset_left = 20.0
+offset_top = 330.0
+offset_right = 504.0
+offset_bottom = 354.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=1343779750]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer" unique_id=2032047225]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Left Mouse Click = Select Option, Spacebar = Get Result, R = Reset Game"
 
 [connection signal="mouse_entered" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Rock/Area2D" to="." method="_on_rock_area_2d_mouse_exited"]

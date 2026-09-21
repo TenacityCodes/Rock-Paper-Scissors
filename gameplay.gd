@@ -94,7 +94,7 @@ func determine_outcome():
 	
 	elif (cpu_choice == player_choice):
 		outcome = "It's A Draw!"
-		
+	
 	elif (player_choice == rock): 
 		if (cpu_choice == paper): 
 			outcome = "You Lost."
@@ -115,7 +115,7 @@ func determine_outcome():
 	
 	outcome_to_display.visible = true
 	outcome_label.text = outcome
-	
+
 func reset():
 	player_choice = 0
 	cpu_choice = 0
