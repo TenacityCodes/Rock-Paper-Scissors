@@ -35,7 +35,6 @@ func _process(delta: float) -> void:
 
 func cpu_select():
 	cpu_choice = randi_range(RPS.ROCK,RPS.SCISSORS)
-	
 	cpu_selection_label.text = cpu_selection_default_label + RPS.keys()[cpu_choice]
 
 func determine_outcome():
@@ -44,7 +43,7 @@ func determine_outcome():
 	if (player_choice == -1):
 		outcome = "No Input Entered"
 	
-	var combos = {RPS.ROCK: RPS.SCISSORS, RPS.PAPER: RPS.ROCK, RPS.SCISSORS: RPS.ROCK}
+	var combos = {RPS.ROCK: RPS.SCISSORS, RPS.PAPER: RPS.ROCK, RPS.SCISSORS: RPS.PAPER}
 	
 	if (player_choice == cpu_choice): # TIE
 		outcome = "YOU TIE!"
